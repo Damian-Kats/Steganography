@@ -1,0 +1,49 @@
+FIT3042 Assignment 2 Steganography README
+
+Damian Katsigiannis: 24222933
+
+Running the program:
+
+	- The gzipped archive contains the following files:
+		- hide.c
+		- unhide.c
+		- functions.c
+		- functions.h
+		- README
+		- Makefile
+
+	- The Makefile will allow the user to compile both hide.c and unhide.c through the use of the make command in the terminal so long as the user is in the current directory of the archive.
+
+	- Once make has been run, hide.c and unhide.c can be run with the following arguments:
+		- hide.c
+			- ./hide "input file" "output file" 				//This is the standard hide functionality.
+
+			- ./hide -m "number of files" "basename" "output-basename"	//The -m flag allows you to hide large messages in multiple smaller images. After the flag is an integer telling the 												program how many files of naming scheme "basename" to open and hide the message in. The program will then output the same 												number of files containing the hidden message pieces and follow a naming scheme similar to the input files but using 												"output-basename" instead. To utilise this functionality, the input files must all follow the same naming scheme e.g. 												"kitten-000.ppm" and "kitten-001.ppm" etc.
+
+			- ./hide -p "filename"						//The -p flag allows you to run multiple hide processes at the same time. The file which is given as argument must have 											filenames listed in the following sequence: 
+			
+															firstmessage.txt kittens.ppm meow.ppm
+															msg2 puppies.ppm woof.ppm
+															deathstar.plans artoo.ppm bleepbloop.ppm
+	
+											This will allow the program to run each line as it's own ./hide process and hide different messages in each of the 												different output files simultaneously.
+
+			- ./hide -s "input file" "output file"				//The -s flag will display both the input image and output image of the hide program in the same window for side by side 												comparison/preview. The image on the left is the input image and the image on the right is the output image with the 												encoded message.
+
+		- unhide.c
+			- ./unhide "filename"						//This is the standard unhide functionality.
+
+			- ./unhide -m "filename" > "secret.txt"				//The -m flag tells unhide to search each "filename" file sequentially and then writes the complete secret message to 												secret.txt.
+
+	  For convenience it is easier if the .ppm files you want to use are also in the archive along with the .c programs. Move them in the directory and run the programs as above.
+
+Features:
+	- The hide program can now take input messages of any length as long as it will fit within the image being used. If the message is too long then the program will throw an error message and quit.
+	- The input message can have all manner of characters including whitespace and newlines. 
+	- The hide program can hide messages across multiple images if given the proper flag argument.
+	- The hide program can run multiple processes in parallel to hide multiple messages in multiple different images simultaneously. 
+	- The hide program can display preview images of both the input and output files if given the proper flag argument. 
+
+Limitations:
+	- It is assumed that the file that unhide is being run on will have first been run on by the hide program. 
+	- Both hide and unhide will only work on P6 PPM files. 
